@@ -6,6 +6,18 @@ const videoSchema = new Schema({
         type: String,
         required: true,
      },
+     director:[{
+name:{
+    type:String
+}
+        }
+    ]
+     ,
+     year:{
+        type:Number,
+        required:true,
+     },
+
     link:{
         type: String,
         required: true,

@@ -53,7 +53,7 @@ export const deleteVideo=(async (req,res,next)=>{
 
     try {
      const deleteVideo = await Video.findByIdAndDelete(req.params.id);
-      
+     res.status(200).json("Video deleted successfully!");
     }
     catch (error) {
      next(error)  
