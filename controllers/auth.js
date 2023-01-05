@@ -1,6 +1,7 @@
 import User from '../models/user.js';
 import bcrypt from 'bcryptjs'
-import {createError} from "../util/error.js"
+import {createError} from "../util/error.js";
+import jwt from 'jsonwebtoken';
 
 export const register =  async (req,res,next)=>{
 
@@ -45,7 +46,11 @@ export const login =  async (req,res,next)=>{
 
         if(!isPasswordCorrect) return next(createError(400,"Wrong password or email Id!"));
 
-        res.status(200).send(user);
+        const token =jwt.sign({id:user._id, isAdmin:user.isAdmin, username:user.username,email:user.email, city:user.city, favGenre:user.favGenre  }, process.env.JWT_KEY)
+
+        const {password,isAdmin,updatedAt,createdAt,...otherdetails}=user._doc
+
+        res.status(200).send({authToken:token});
     } catch (error) {
         next(error);
     }

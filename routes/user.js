@@ -1,15 +1,20 @@
 import express from "express";
 import User from "../models/user.js";
+import { updateUser, getUser, getAllUsers, deleteUser } from "../controllers/user.js";
 const router =express.Router();
 
-router.post('/', async (req,res)=>{
-    const newUser =new User(req.body);
-   try {
-    const savedUser = await newUser.save();
-     res.status(200).json(savedUser);
-   } catch (error) {
-    res.status(500).json(error);
-   }
-})
+
+
+//UPDATE
+
+router.put('/:id', updateUser)
+
+//GET
+router.get('/:id',getUser)
+
+//GET ALL
+router.get('/',getAllUsers) 
+//DELETE
+router.delete('/:id', deleteUser)
 
 export default router;
